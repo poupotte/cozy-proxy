@@ -42,6 +42,8 @@ module.exports = class Router extends Backbone.Router
     auth: (path, options) ->
         # The `next` state-model option contains the path where the app must
         # redirect after a successful login.
+        if path is '/'
+            path = "#apps/edf/"
         auth = new AuthModel next: path
         @app.layout.showChildView 'content', new AuthView _.extend options,
             model: auth
