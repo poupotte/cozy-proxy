@@ -1,11 +1,20 @@
 extends view_base
 
 block region
-    h1= t(prefix + ' welcome', {username: username})
-    p.help#login-password-tip= t(prefix + ' enter your password', {username: username})
+    h1 Bienvenue
+    p.help#login-password-tip Merci d'entrer vos identifiant et mot de passe :
+    label.with-input(for="#{prefix}-login", aria-describedby="#{prefix}-login-tip")
+        span Identifiant MAIF
+        input(id="#{prefix}-login" name="login" type="text" autofocus=true)    
     label.with-input(for="#{prefix}-password", aria-describedby="#{prefix}-password-tip")
         span= t(prefix + ' password')
-        input(id="#{prefix}-password" name="password" type="password" autofocus=true)
+        input(id="#{prefix}-password" name="password" type="password")
+    p.already-cozy-user
+        span.arrow-down
+        span Utilisateur de CozyCloud ?
+    label.with-input#cozy-url(for="#{prefix}-cozy-url", aria-describedby="#{prefix}-cozy-url-tip")
+        span Nom du Cozy
+        input(id="#{prefix}-cozy-url" name="cozy-url" type="text")        
 
 
 block controls

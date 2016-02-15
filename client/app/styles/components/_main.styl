@@ -111,6 +111,29 @@ p
 
 // login Section
 .auth
+
+    .already-cozy-user
+        color $blue
+
+        .arrow-down
+            width 0
+            height 0
+            border-left 5px solid transparent
+            border-right 5px solid transparent
+            border-top 5px solid $blue
+
+        span
+            display inline-block
+            margin-right 5px
+            cursor pointer
+
+    #cozy-url
+        display none
+
+        &.shown
+            display block
+
+
     .feedback
         & > div
             margin-top   1.2em
@@ -129,4 +152,7 @@ p
             text-transform uppercase
 
         p
+            color $grey-05
+
+        .recover a
             color $grey-05

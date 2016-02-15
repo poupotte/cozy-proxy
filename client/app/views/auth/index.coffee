@@ -27,7 +27,10 @@ module.exports = class AuthView extends Mn.LayoutView
         'feedback': '.feedback'
 
     ui:
+        login: 'input[name=login]'
         passwd: 'input[type=password]'
+        cozyUrlTrigger: '.already-cozy-user'
+        cozyUrl: '#cozy-url'
         submit: '.controls button[type=submit]'
 
 
@@ -81,7 +84,6 @@ module.exports = class AuthView extends Mn.LayoutView
         @model.isBusy.plug form.map true
         @model.signin.plug form
 
-
     ###
     After rendering
 
@@ -96,8 +98,15 @@ module.exports = class AuthView extends Mn.LayoutView
             model:  @model
 
         # Select all password field content at focus
-        @ui.passwd.asEventStream 'focus'
-            .assign @ui.passwd[0], 'select'
+        @ui.login.asEventStream 'focus'
+            .assign @ui.login[0], 'select'
+
+
+        @$el.asEventStream 'click', @ui.cozyUrlTrigger
+            .assign @ui.cozyUrl, 'addClass', 'shown'
+
+        @$el.asEventStream 'click', @ui.cozyUrlTrigger
+            .assign @ui.cozyUrlTrigger, 'hide'
 
         # This is a ugly workaround to the autofocus issue: the field is marked
         # as `[autofocus]` so it gets the focus when the page loads. But if the
@@ -108,7 +117,7 @@ module.exports = class AuthView extends Mn.LayoutView
         # So we force the focus after a short time (to let the DOM breath), to
         # trigger the `onFocus` event subscribers.
         setTimeout =>
-            @ui.passwd.focus()
+            @ui.login.focus()
         , 100
 
         # Focus again to avoid blinks and ensure that everything is
@@ -116,7 +125,7 @@ module.exports = class AuthView extends Mn.LayoutView
         # Without it Firefox doesn't select the field content in every
         # cases.
         setTimeout =>
-            @ui.passwd.focus()
+            @ui.login.focus()
         , 300
 
         # Assign the button busy state to the state-machine busy state
