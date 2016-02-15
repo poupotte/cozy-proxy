@@ -101,11 +101,10 @@ module.exports = class AuthView extends Mn.LayoutView
         @ui.login.asEventStream 'focus'
             .assign @ui.login[0], 'select'
 
-
-        @$el.asEventStream 'click', @ui.cozyUrlTrigger
+        @ui.cozyUrlTrigger.asEventStream 'click'
             .assign @ui.cozyUrl, 'addClass', 'shown'
 
-        @$el.asEventStream 'click', @ui.cozyUrlTrigger
+        @ui.cozyUrlTrigger.asEventStream 'click'
             .assign @ui.cozyUrlTrigger, 'hide'
 
         # This is a ugly workaround to the autofocus issue: the field is marked
